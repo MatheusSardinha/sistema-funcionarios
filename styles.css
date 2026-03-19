@@ -1,0 +1,137 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color:#f4f6f9;
+    color:#333;
+}
+
+header{
+    background:#1f2937;
+    color:white;
+    padding:20px;
+}
+
+header h1{
+    margin-bottom:10px;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+nav a{
+    text-decoration:none;
+    color:white;
+}
+
+main{
+    max-width:1000px;
+    margin:30px auto;
+    padding:20px;
+    width:100%;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    margin-top:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.card h2{
+    margin-bottom:20px;
+}
+
+form div{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+}
+
+label{
+    margin-bottom:5px;
+    font-weight:500;
+}
+
+input, select{
+    padding:10px;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+
+button{
+    padding:10px 16px;
+    border:none;
+    border-radius:5px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#e5e7eb;
+}
+
+th, td{
+    padding:12px;
+    text-align:left;
+}
+
+tbody tr:nth-child(even){
+    background:#f9fafb;
+}
+
+td button{
+    margin-right:5px;
+}
+
+td button:first-child{
+    background:#6b7280;
+}
+
+td button:last-child{
+    background:#dc2626;
+}
+
+td button:last-child:hover{
+    background:#b91c1c;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    margin-top:30px;
+    background:#1f2937;
+    color:white;
+}
+
+@media(max-width:768px){
+
+    nav ul{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+    }
+
+}
