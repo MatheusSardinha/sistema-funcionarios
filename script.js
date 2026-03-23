@@ -1,14 +1,14 @@
 let currentId = 1;
 const employees = [];
 
-function addEmployee({ name, email, role, salary, hiredAt }) {
+function addEmployee({ name, email, role, salary, admission_date }) {
   const newEmployee = {
     id: currentId++,
     name,
     email,
     role,
     salary,
-    hiredAt
+    admission_date
   };
 
   employees.push(newEmployee);
