@@ -7,25 +7,33 @@ const salaryInput = document.getElementById("employee-salary");
 const dateInput = document.getElementById("employee-date");
 const tableBody = document.querySelector("#employee-table tbody");
 
+let editingId = null;
 
 // ===== Render =====
 function renderEmployees() {
   tableBody.innerHTML = "";
 
-  const employees = listEmployees();
+  const employeesList = listEmployees();
 
-  employees.forEach(emp => {
+  employeesList.forEach(emp => {
     const tr = document.createElement("tr");
+
+    const formattedSalary = Number(emp.salary).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+
+    const formattedDate = new Date(emp.admission_date).toLocaleDateString("pt-BR");
 
     tr.innerHTML = `
       <td>${emp.name}</td>
       <td>${emp.email}</td>
       <td>${emp.role}</td>
-      <td>R$ ${Number(emp.salary).toFixed(2)}</td>
-      <td>${emp.admission_date}</td>
+      <td>${formattedSalary}</td>
+      <td>${formattedDate}</td>
       <td>
-        <button>Editar</button>
-        <button data-id="${emp.id}">Excluir</button>
+        <button type="button" data-edit="${emp.id}">Editar</button>
+        <button type="button" data-id="${emp.id}">Excluir</button>
       </td>
     `;
 
@@ -35,12 +43,25 @@ function renderEmployees() {
       renderEmployees();
     });
 
+    const editBtn = tr.querySelector("[data-edit]");
+    editBtn.addEventListener("click", () => {
+      editingId = emp.id;
+
+      nameInput.value = emp.name;
+      emailInput.value = emp.email;
+      roleInput.value = emp.role;
+      salaryInput.value = emp.salary;
+      dateInput.value = emp.admission_date;
+
+      form.querySelector("button").textContent = "Salvar Alterações";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
     tableBody.appendChild(tr);
   });
 }
 
-
-// ===== Enviar =====
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -52,18 +73,25 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  addEmployee({
+  const employeeData = {
     name,
     email,
     role: roleInput.value,
     salary: salaryInput.value,
     admission_date: dateInput.value
-  });
+  };
+
+  if (editingId !== null) {
+    updateEmployee(editingId, employeeData);
+    editingId = null;
+
+    form.querySelector("button").textContent = "Salvar Funcionário";
+  } else {
+    addEmployee(employeeData);
+  }
 
   form.reset();
   renderEmployees();
 });
 
-
-// ===== Iniciar =====
 renderEmployees();
