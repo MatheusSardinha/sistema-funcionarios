@@ -50,6 +50,12 @@ main{
     margin-bottom:20px;
 }
 
+.edit-mode{
+    margin-bottom:10px;
+    font-weight:600;
+    color:#dc2626;
+}
+
 form div{
     display:flex;
     flex-direction:column;
@@ -96,6 +102,10 @@ th, td{
 
 tbody tr:nth-child(even){
     background:#f9fafb;
+}
+
+tbody tr:hover{
+    background:#e5e7eb;
 }
 
 td button{

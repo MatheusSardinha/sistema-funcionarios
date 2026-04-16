@@ -1,5 +1,8 @@
-let currentId = 1;
 const employees = [];
+
+let currentId = employees.length > 0 
+  ? Math.max(...employees.map(e => e.id)) + 1 
+  : 1;
 
 function addEmployee({ name, email, role, salary, admission_date }) {
   const newEmployee = {
@@ -22,10 +25,7 @@ function listEmployees() {
 function updateEmployee(id, updatedData) {
   const employee = employees.find(emp => emp.id === id);
 
-  if (!employee) {
-    console.log("Funcionário não encontrado");
-    return null;
-  }
+  if (!employee) return null;
 
   Object.assign(employee, updatedData);
   return employee;
@@ -34,10 +34,7 @@ function updateEmployee(id, updatedData) {
 function removeEmployee(id) {
   const index = employees.findIndex(emp => emp.id === id);
 
-  if (index === -1) {
-    console.log("Funcionário não encontrado");
-    return false;
-  }
+  if (index === -1) return false;
 
   employees.splice(index, 1);
   return true;

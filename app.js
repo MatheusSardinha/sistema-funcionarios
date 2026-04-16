@@ -1,4 +1,4 @@
-// ===== DOM =====
+// DOM
 const form = document.getElementById("employee-form");
 const nameInput = document.getElementById("employee-name");
 const emailInput = document.getElementById("employee-email");
@@ -6,10 +6,11 @@ const roleInput = document.getElementById("employee-role");
 const salaryInput = document.getElementById("employee-salary");
 const dateInput = document.getElementById("employee-date");
 const tableBody = document.querySelector("#employee-table tbody");
+const editModeText = document.getElementById("edit-mode");
 
 let editingId = null;
 
-// ===== Render =====
+// Render
 function renderEmployees() {
   tableBody.innerHTML = "";
 
@@ -37,14 +38,14 @@ function renderEmployees() {
       </td>
     `;
 
-    const deleteBtn = tr.querySelector("[data-id]");
-    deleteBtn.addEventListener("click", () => {
+    // Remove
+    tr.querySelector("[data-id]").addEventListener("click", () => {
       removeEmployee(emp.id);
       renderEmployees();
     });
 
-    const editBtn = tr.querySelector("[data-edit]");
-    editBtn.addEventListener("click", () => {
+    // Edit
+    tr.querySelector("[data-edit]").addEventListener("click", () => {
       editingId = emp.id;
 
       nameInput.value = emp.name;
@@ -54,6 +55,7 @@ function renderEmployees() {
       dateInput.value = emp.admission_date;
 
       form.querySelector("button").textContent = "Salvar Alterações";
+      editModeText.textContent = "Editando funcionário...";
 
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -62,6 +64,7 @@ function renderEmployees() {
   });
 }
 
+// Submit
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -86,12 +89,16 @@ form.addEventListener("submit", (e) => {
     editingId = null;
 
     form.querySelector("button").textContent = "Salvar Funcionário";
+    editModeText.textContent = "";
   } else {
     addEmployee(employeeData);
   }
 
   form.reset();
+  roleInput.selectedIndex = 0;
+
   renderEmployees();
 });
 
+// Init
 renderEmployees();
